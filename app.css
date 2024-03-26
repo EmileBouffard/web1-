@@ -1,0 +1,11 @@
+#tic-tac-toe a{
+    padding: 50px;
+    display: block;
+    cursor: pointer;
+}
+#tic-tac-toe td {
+    border: 1px solid black;
+}
+#tic-tac-toe{
+    border-collapse:collapse ;
+}

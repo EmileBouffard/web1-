@@ -1,50 +1,39 @@
 let joueurCourant = "X";
 let gagnant = false;
+let etatPartie = ["","","","","","","","",""];
+
+function gagnantTrouver(){
+    gagnantTrouver = true;
+    alert(" Bravo " + joueurCourant)
+}
+function ValiderLigne(hauteur, largeur){
+    
+    for (let i = 0; i < hauteur; i++) {
+        const indicepremierElement = i * largeur;
+        const premierElement = etatPartie[indicepremierElement];
+        let gagnant = true;
+    
+        if(premierElement == ""){
+            gagnant = false;
+        }
+    
+        for (let j = 1; j < largeur; j++) {
+            const elementCourant = etatPartie [indicepremierElement + j];
+    
+            if(premierElement != elementCourant){
+                gagnant = false;
+            }
+        }
+        if (gagnant){
+            gagnantTrouver();
+        }
+       }
+}
 
 function VerifierGagnant() {
-    const topLeftValue = document.getElementById("top-left").innerHTML;
-    const topValue = document.getElementById("top").innerHTML;
-    const toprightValue = document.getElementById("top-right").innerHTML;
-    const LeftValue = document.getElementById("left").innerHTML;
-    const middleValue = document.getElementById("middle").innerHTML;
-    const rightValue = document.getElementById("right").innerHTML;
-    const bottomleftValue = document.getElementById("bottom-left").innerHTML;
-    const bottomValue = document.getElementById("bottom").innerHTML;
-    const bottomrightValue = document.getElementById("bottom-right").innerHTML;
-    
-    if(topLeftValue == topValue && topLeftValue == toprightValue && topLeftValue !=""){
-        alert("Gagnant!")
-        gagnant = true;
-    }
-    else if(LeftValue == middleValue && LeftValue == rightValue && LeftValue !=""){
-        alert("Gagnant!")
-        gagnant = true;
-    }
-    else if(bottomleftValue == bottomValue && bottomleftValue == bottomrightValue && bottomleftValue !="" ){
-        alert("Gagnant!")
-        gagnant = true;
-    }
-    else if(topLeftValue == bottomleftValue && topLeftValue == LeftValue && topLeftValue != ""){
-        alert("Gagnant!")
-        gagnant = true;
-    }
-    else if(topValue == bottomValue && topValue == middleValue && topValue !=""){
-        alert("Gagnant!")
-        gagnant = true;
-    }
-    else if(toprightValue == bottomrightValue && toprightValue == rightValue && toprightValue !=""){
-        alert("Gagnant!")
-        gagnant = true;
-    }
-    else if(topLeftValue == bottomrightValue && topLeftValue == middleValue && topLeftValue !=""){
-        alert("Gagnant!")
-        gagnant = true;
-    }
-    else if (toprightValue == bottomleftValue && toprightValue == middleValue && toprightValue !=""){
-        alert("Gagnant!")
-        gagnant = true;
-    }
- 
+    const largeur = 3;
+    const hauteur = 3;
+    ValiderLigne(hauteur, largeur);
 }
 function changerJouer(){
     if(joueurCourant == "X"){
@@ -54,28 +43,30 @@ function changerJouer(){
         joueurCourant = "X";
     }
 }
-function AjouterEvenmentClick (elementHtml){   
+function AjouterEvenmentClick (elementHtml, indiceCase){   
    elementHtml.addEventListener("click", ()=>{
     if(gagnant){
         return;
     }
     if(elementHtml.innerHTML ==""){
+        etatPartie[indiceCase] = joueurCourant;
         elementHtml.innerHTML = joueurCourant;
-        changerJouer(); 
+        console.log(etatPartie);
         VerifierGagnant();
+        changerJouer();  
     }
   
 
    });
 }
 window.addEventListener("load",()=>{
-   AjouterEvenmentClick(document.getElementById("top-left"));
-   AjouterEvenmentClick(document.getElementById("top"));
-   AjouterEvenmentClick(document.getElementById("top-right"));
-   AjouterEvenmentClick(document.getElementById("left"));
-   AjouterEvenmentClick(document.getElementById("middle"));
-   AjouterEvenmentClick(document.getElementById("right"));
-   AjouterEvenmentClick(document.getElementById("bottom-left"));
-   AjouterEvenmentClick(document.getElementById("bottom"));
-   AjouterEvenmentClick(document.getElementById("bottom-right"));
+   AjouterEvenmentClick(document.getElementById("top-left"), 0);
+   AjouterEvenmentClick(document.getElementById("top"), 1);
+   AjouterEvenmentClick(document.getElementById("top-right"), 2);
+   AjouterEvenmentClick(document.getElementById("left"), 3);
+   AjouterEvenmentClick(document.getElementById("middle"), 4);
+   AjouterEvenmentClick(document.getElementById("right"), 5);
+   AjouterEvenmentClick(document.getElementById("bottom-left"), 6);
+   AjouterEvenmentClick(document.getElementById("bottom"), 7);
+   AjouterEvenmentClick(document.getElementById("bottom-right"), 8);
 });
